@@ -1,0 +1,87 @@
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+#include "dsw.h"
+#include <QGraphicsView>
+#include <QGraphicsScene>
+#include <QPixmap>
+#include <QScrollArea>
+#include <QElapsedTimer>
+
+MainWindow::MainWindow(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+    this->setFixedSize(this->geometry().width(),this->geometry().height());
+    dsw = new DSW();
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
+
+void MainWindow::on_pushButton_clicked()
+{
+    ui->pushButton->setEnabled(false);
+    QString text = ui->cvorovi->text();
+
+    QStringList list = text.split(" ",QString::SkipEmptyParts);
+
+
+    foreach(QString num, list)
+    dsw->insert(num.toInt());
+
+    dsw->preorder();
+
+
+
+    QPixmap m = dsw->show();
+
+    QImage image("/home/gorana/dotFiles/output.png");
+    item=new QGraphicsPixmapItem(QPixmap::fromImage(image));
+    scene=new QGraphicsScene(this);
+    ui->graphicsView->setScene(scene);
+    scene->addItem(item);
+}
+
+void MainWindow::on_pushButton_2_clicked()
+{
+
+    ui->pushButton_2->setEnabled(false);
+
+    dsw->treeToArray();
+      QPixmap m = dsw->show();
+    QImage image("/home/gorana/dotFiles/output.png");
+    item=new QGraphicsPixmapItem(QPixmap::fromImage(image));
+    scene=new QGraphicsScene(this);
+    ui->graphicsView->setScene(scene);
+    scene->addItem(item);
+
+}
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    ui->pushButton_3->setEnabled(false);
+
+
+    dsw->arrayToTree();
+     QPixmap m = dsw->show();
+
+    QImage image("/home/gorana/dotFiles/output.png");
+    item=new QGraphicsPixmapItem(QPixmap::fromImage(image));
+    scene=new QGraphicsScene(this);
+    ui->graphicsView->setScene(scene);
+    scene->addItem(item);
+
+}
+
+void MainWindow::on_pushButton_4_clicked()
+{
+    ui->pushButton->setEnabled(false);
+    ui->pushButton_2->setEnabled(false);
+    ui->pushButton_3->setEnabled(false);
+
+    for(int i= 0 ;i<)
+}
